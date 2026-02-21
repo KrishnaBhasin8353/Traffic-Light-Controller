@@ -1,0 +1,35 @@
+
+Where:
+- R1 = 10kΩ  
+- R2 = 0–100kΩ (Variable)  
+- C = 100µF  
+
+---
+
+## 💻 Arduino Code
+
+```cpp
+#include <Arduino.h>
+
+const int IrPin = 2;
+const int redPhasePin = 7;
+const int buzzer = 3;
+
+void setup() {
+  pinMode(IrPin, INPUT);
+  pinMode(redPhasePin, INPUT);
+  pinMode(buzzer, OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  int redOn = digitalRead(redPhasePin);
+  int motion = digitalRead(IrPin);
+
+  if (redOn && motion == LOW) {
+    digitalWrite(buzzer, HIGH);
+    Serial.println("Object detected during RED light!");
+  } else {
+    digitalWrite(buzzer, LOW);
+  }
+}
